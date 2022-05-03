@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../Home/Home.dart';
+
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);
 
@@ -250,32 +252,44 @@ class _RegistrationState extends State<Registration> {
                             ),
                           ),
                           onPressed: () {
-                            if(_firstNameController.text.isEmpty){
-                              Fluttertoast.showToast(msg: "Please enter first Name");
+                            if (_firstNameController.text.isEmpty) {
+                              Fluttertoast.showToast(
+                                  msg: "Please enter first Name");
                               _firstNameFocusNode.requestFocus();
-                            }else if(_lastNameController.text.isEmpty){
-                              Fluttertoast.showToast(msg: "Please enter last Name");
+                            } else if (_lastNameController.text.isEmpty) {
+                              Fluttertoast.showToast(
+                                  msg: "Please enter last Name");
                               _lastNameFocusNode.requestFocus();
-                            }else if(_emailAddressController.text.isEmpty){
-                              Fluttertoast.showToast(msg: "Please enter email address");
+                            } else if (_emailAddressController.text.isEmpty) {
+                              Fluttertoast.showToast(
+                                  msg: "Please enter email address");
                               _emailAddressFocusNode.requestFocus();
-                            }else if(_mobileNumberController.text.isEmpty){
-                              Fluttertoast.showToast(msg: "Please enter mobile number");
+                            } else if (_mobileNumberController.text.isEmpty) {
+                              Fluttertoast.showToast(
+                                  msg: "Please enter mobile number");
                               _mobileFocusNode.requestFocus();
-                            }else if(_mobileNumberController.text.length != 10){
-                              Fluttertoast.showToast(msg: "Please enter a mobile number");
+                            } else if (_mobileNumberController.text.length !=
+                                10) {
+                              Fluttertoast.showToast(
+                                  msg: "Please enter a mobile number");
                               _mobileFocusNode.requestFocus();
-                            }else if(_passwordController.text.isEmpty){
-                              Fluttertoast.showToast(msg: "Please enter a password");
+                            } else if (_passwordController.text.isEmpty) {
+                              Fluttertoast.showToast(
+                                  msg: "Please enter a password");
                               _passwordFocusNode.requestFocus();
-                            }else if(_confirmPasswordController.text.isEmpty){
-                              Fluttertoast.showToast(msg: "Please confirm password");
+                            } else if (_confirmPasswordController
+                                .text.isEmpty) {
+                              Fluttertoast.showToast(
+                                  msg: "Please confirm password");
                               _confirmPasswordFocusNode.requestFocus();
-                            }else if(_passwordController.text.toString() != _confirmPasswordController.text.toString()){
+                            } else if (_passwordController.text.toString() !=
+                                _confirmPasswordController.text.toString()) {
                               Fluttertoast.showToast(msg: "Password mismatch");
                               _confirmPasswordFocusNode.requestFocus();
-                            }else{
-                              Fluttertoast.showToast(msg: "Signup");
+                            } else {
+                              //Fluttertoast.showToast(msg: "Signup");
+                              Navigator.of(context)
+                                  .pushReplacementNamed("/home");
                             }
                           },
                           child: const Text(

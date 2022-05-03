@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mucket_flutter/Screens/SplashScreen.dart';
 import 'package:mucket_flutter/Screens/TabController/Login_Reg_TabController/LoginRegTabController.dart';
 
+import 'Screens/Home/Home.dart';
+
 void main(){
   runApp(const Mucket());
 }
@@ -20,6 +22,7 @@ class Mucket extends StatelessWidget {
       home: const SplashScreen(),
       routes: {
         "/loginReg" : (context) => const LoginRegTabController(),
+        "/home" : (context) => const Home(),
       },
     );
   }

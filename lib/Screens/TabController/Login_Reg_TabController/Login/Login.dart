@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../../Home/Home.dart';
+
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
 
@@ -124,7 +126,9 @@ class _LoginState extends State<Login> {
                       Fluttertoast.showToast(msg: "Please Enter password");
                       _passwordFocusNode.requestFocus();
                     } else {
-                      Fluttertoast.showToast(msg: "Login");
+                      //Fluttertoast.showToast(msg: "Login");
+                      //Home();
+                      Navigator.of(context).pushReplacementNamed("/home");
                     }
                   },
                   child: const Text(
