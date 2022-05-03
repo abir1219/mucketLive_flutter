@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Registration extends StatefulWidget {
   const Registration({Key? key}) : super(key: key);
@@ -14,6 +13,56 @@ class _RegistrationState extends State<Registration> {
   bool _hasOtpValidate = false;
   bool _isShowPassword = true;
   bool _isShowConfirmPassword = true;
+
+  late FocusNode _validateMobileFocusNode;
+  late FocusNode _validateOtpFocusNode;
+
+  late FocusNode _firstNameFocusNode;
+  late FocusNode _lastNameFocusNode;
+  late FocusNode _emailAddressFocusNode;
+  late FocusNode _mobileFocusNode;
+  late FocusNode _passwordFocusNode;
+  late FocusNode _confirmPasswordFocusNode;
+
+  late var _validateMobileController = TextEditingController();
+  late var _validateOtpController = TextEditingController();
+
+  late var _firstNameController = TextEditingController();
+  late var _lastNameController = TextEditingController();
+  late var _emailAddressController = TextEditingController();
+  late var _mobileNumberController = TextEditingController();
+  late var _passwordController = TextEditingController();
+  late var _confirmPasswordController = TextEditingController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _validateMobileFocusNode = FocusNode();
+    _validateOtpFocusNode = FocusNode();
+
+    _firstNameFocusNode = FocusNode();
+    _lastNameFocusNode = FocusNode();
+    _emailAddressFocusNode = FocusNode();
+    _mobileFocusNode = FocusNode();
+    _passwordFocusNode = FocusNode();
+    _confirmPasswordFocusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    _validateMobileFocusNode.dispose();
+    _validateOtpFocusNode.dispose();
+
+    _firstNameFocusNode.dispose();
+    _lastNameFocusNode.dispose();
+    _emailAddressFocusNode.dispose();
+    _mobileFocusNode.dispose();
+    _passwordFocusNode.dispose();
+    _confirmPasswordFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +87,8 @@ class _RegistrationState extends State<Registration> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: TextFormField(
+                          focusNode: _firstNameFocusNode,
+                          controller: _firstNameController,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
                             labelText: "First Name",
@@ -59,6 +110,8 @@ class _RegistrationState extends State<Registration> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: TextFormField(
+                          focusNode: _lastNameFocusNode,
+                          controller: _lastNameController,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
                             labelText: "Last Name",
@@ -80,6 +133,8 @@ class _RegistrationState extends State<Registration> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: TextFormField(
+                          focusNode: _emailAddressFocusNode,
+                          controller: _emailAddressController,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
                             labelText: "Email Address",
@@ -101,6 +156,8 @@ class _RegistrationState extends State<Registration> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: TextFormField(
+                          focusNode: _mobileFocusNode,
+                          controller: _mobileNumberController,
                           keyboardType: TextInputType.phone,
                           decoration: const InputDecoration(
                             border: InputBorder.none,
@@ -123,11 +180,13 @@ class _RegistrationState extends State<Registration> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: TextFormField(
+                          focusNode: _passwordFocusNode,
+                          controller: _passwordController,
                           obscureText: _isShowPassword,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             labelText: "Password",
-                            prefixIcon: Icon(Icons.lock),
+                            prefixIcon: const Icon(Icons.lock),
                             suffixIcon: IconButton(
                               onPressed: () {
                                 _isShowPassword = !_isShowPassword;
@@ -154,11 +213,13 @@ class _RegistrationState extends State<Registration> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: TextFormField(
+                          focusNode: _confirmPasswordFocusNode,
+                          controller: _confirmPasswordController,
                           obscureText: _isShowConfirmPassword,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             labelText: "Confirm Password",
-                            prefixIcon: Icon(Icons.lock),
+                            prefixIcon: const Icon(Icons.lock),
                             suffixIcon: IconButton(
                               icon: Icon(_isShowConfirmPassword
                                   ? Icons.visibility
@@ -188,7 +249,35 @@ class _RegistrationState extends State<Registration> {
                               ),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            if(_firstNameController.text.isEmpty){
+                              Fluttertoast.showToast(msg: "Please enter first Name");
+                              _firstNameFocusNode.requestFocus();
+                            }else if(_lastNameController.text.isEmpty){
+                              Fluttertoast.showToast(msg: "Please enter last Name");
+                              _lastNameFocusNode.requestFocus();
+                            }else if(_emailAddressController.text.isEmpty){
+                              Fluttertoast.showToast(msg: "Please enter email address");
+                              _emailAddressFocusNode.requestFocus();
+                            }else if(_mobileNumberController.text.isEmpty){
+                              Fluttertoast.showToast(msg: "Please enter mobile number");
+                              _mobileFocusNode.requestFocus();
+                            }else if(_mobileNumberController.text.length != 10){
+                              Fluttertoast.showToast(msg: "Please enter a mobile number");
+                              _mobileFocusNode.requestFocus();
+                            }else if(_passwordController.text.isEmpty){
+                              Fluttertoast.showToast(msg: "Please enter a password");
+                              _passwordFocusNode.requestFocus();
+                            }else if(_confirmPasswordController.text.isEmpty){
+                              Fluttertoast.showToast(msg: "Please confirm password");
+                              _confirmPasswordFocusNode.requestFocus();
+                            }else if(_passwordController.text.toString() != _confirmPasswordController.text.toString()){
+                              Fluttertoast.showToast(msg: "Password mismatch");
+                              _confirmPasswordFocusNode.requestFocus();
+                            }else{
+                              Fluttertoast.showToast(msg: "Signup");
+                            }
+                          },
                           child: const Text(
                             "SIGN UP",
                             style: TextStyle(

@@ -10,8 +10,8 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool _isNotVisible = true;
-  late FocusNode emailFocusNode;
-  late FocusNode passwordFocusNode;
+  late FocusNode _emailFocusNode;
+  late FocusNode _passwordFocusNode;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late var _emailController = TextEditingController();
   late var _passwordController = TextEditingController();
@@ -19,8 +19,8 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    emailFocusNode = FocusNode();
-    passwordFocusNode = FocusNode();
+    _emailFocusNode = FocusNode();
+    _passwordFocusNode = FocusNode();
   }
 
   @override
@@ -42,7 +42,7 @@ class _LoginState extends State<Login> {
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: TextFormField(
-                    focusNode: emailFocusNode,
+                    focusNode: _emailFocusNode,
                     /*validator: (value){
                       //value.isEmpty ? return "Please enter email address" : return null;
                       if(value!.isEmpty){
@@ -71,7 +71,7 @@ class _LoginState extends State<Login> {
                 child: Padding(
                   padding: const EdgeInsets.all(8),
                   child: TextFormField(
-                    focusNode: passwordFocusNode,
+                    focusNode: _passwordFocusNode,
                     controller: _passwordController,
                     obscureText: _isNotVisible,
                     decoration: InputDecoration(
@@ -119,10 +119,10 @@ class _LoginState extends State<Login> {
                     if (_emailController.text.toString().isEmpty) {
                       //FlutterToast.show
                       Fluttertoast.showToast(msg: "Please Enter email address");
-                      emailFocusNode.requestFocus();
+                      _emailFocusNode.requestFocus();
                     } else if (_passwordController.text.toString().isEmpty) {
                       Fluttertoast.showToast(msg: "Please Enter password");
-                      passwordFocusNode.requestFocus();
+                      _passwordFocusNode.requestFocus();
                     } else {
                       Fluttertoast.showToast(msg: "Login");
                     }
@@ -159,8 +159,8 @@ class _LoginState extends State<Login> {
   @override
   void dispose() {
     // Clean up the focus node when the Form is disposed.
-    emailFocusNode.dispose();
-    passwordFocusNode.dispose();
+    _emailFocusNode.dispose();
+    _passwordFocusNode.dispose();
 
     super.dispose();
   }
